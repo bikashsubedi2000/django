@@ -1,0 +1,7 @@
+{% extends 'index.html' %}
+
+{% block main_section %}
+{% for p in product %}
+<h1>{{ p.product_name }}</h1>
+{% endfor %}
+{% endblock %}
