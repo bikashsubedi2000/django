@@ -26,3 +26,6 @@ def category(request):
 
 def index(request):
     return render(request,'product/index.html')
+
+
+
