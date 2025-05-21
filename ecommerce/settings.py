@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'adminpage',
     "crispy_forms",
     "crispy_tailwind",
+    'user',
     
 ]
 

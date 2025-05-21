@@ -56,10 +56,10 @@ def updateproduct(request, product_id):
         form=ProductForm(request.POST,request.FILES,instance=instance)
         if form.is_valid():
             form.save()
-            messages.add_message(request,messages.SUCCESS,'prodcut updated successfully !' )
+            messages.add_message(request,messages.SUCCESS,'product updated successfully !' )
             return redirect('/admins/productlist')
         else:
-            messages.add_message(request, messages.ERROR,'Error occured While Updating product')
+            messages.add_message(request, messages.ERROR,'Error occurred While Updating product')
             return render(request,'admins/updateproduct.html',{'form':form})
             
             
@@ -72,5 +72,5 @@ def updateproduct(request, product_id):
 def deleteproduct(request, product_id):
     product = Product.objects.get(id=product_id)
     product.delete()
-    messages.add_message(request, messages.SUCCESS, 'Product Deleted successfull !')
+    messages.add_message(request, messages.SUCCESS, 'Product Deleted successfully !')
     return redirect('/admins/productlist')
