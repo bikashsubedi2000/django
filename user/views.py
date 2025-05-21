@@ -8,3 +8,11 @@ def homepage(request):
         'product': product
     }
     return render(request, 'user/homepage.html', data)
+
+
+def productpage(request):
+    product = Product.objects.all().order_by('-id')[:10]
+    data = {
+        'product': product
+    }
+    return render(request, 'user/productpage.html',data)
