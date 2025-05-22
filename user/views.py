@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from product.models import *
+from .filters import *
 
 # Create your views here.
 def homepage(request):
@@ -11,8 +12,21 @@ def homepage(request):
 
 
 def productpage(request):
-    product = Product.objects.all().order_by('-id')[:10]
+    product = Product.objects.all().order_by('-id')
+    product_filter=ProductFilter(request.GET,queryset=product)
+    product_final=product_filter.qs
+    data = {
+        'product': product_final,
+        'product_filter':product_filter
+        
+    }
+    return render(request, 'user/productpage.html',data)
+
+def productdetail(request, product_id):
+    product = Product.objects.get(id=product_id)
+
     data = {
         'product': product
     }
-    return render(request, 'user/productpage.html',data)
+
+    return render(request, 'user/productdetail.html', data)
