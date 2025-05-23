@@ -1,70 +1,46 @@
 {% extends 'index.html' %}
+
 {% block main_section %}
+<!-- for product section in product page copied from home page but carousel is removed https://pagedone.io/blocks/e-commerce/product-list -->
 
-<!-- for product section in product  page copied from home page but carousal is removed
- https://pagedone.io/blocks/e-commerce/product-list -->
+<section class="py-24">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-                         <section class="py-24">
-        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            
-
-            <!-- add new class and put h2 inside -->
-             <div class="flex justify-between">
-                 <h2 class="font-manrope font-bold text-4xl text-black mb-8 max-lg:text-center">
+        <!-- add new class and put h2 inside -->
+        <div class="flex justify-between">
+            <h2 class="font-manrope font-bold text-4xl text-black mb-8 max-lg:text-center">
                 Product list
             </h2>
             <form action="" method="get" class="search_form">
-                {{product_filter.form.as_p}}
-                <button class="px-3 py-2 bg-blue-500 text-white rounded">Search</button>
-<!-- to search use django-filters package -->
-
-
+                {{ product_filter.form.as_p }}
+                <button class="px-3 py-2 bg-blue-800 text-white rounded">Search</button>
+                <!-- to search use django-filters package -->
             </form>
-
-             </div>
-           
-
-
-            <!-- search  -->
-
-
-
-
-            
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-                {%for p in product%}
-
-                <a href="{%url 'productdetail' p.id %}">
-
-                    <a href="javascript:;"
-                    class="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500">
-                    <div class="">
-                        <img src="/{{p.image}}" alt="{{p.product_name}}"
-                            class="w-full aspect-square rounded-2xl object-cover">
-                    </div>
-                    <div class="mt-5">
-                        <div class="flex items-center justify-between">
-                            <h6
-                                class="font-semibold text-xl leading-8 text-black transition-all duration-500 group-hover:text-indigo-600">
-                                {{p.product_name}}</h6>
-                            <h6 class="font-semibold text-xl leading-8 text-indigo-600">Rs. {{p.product_price}}</h6>
-                        </div>
-                        <p class="mt-2 font-normal text-sm leading-6 text-gray-500">{{p.category}}</p>
-                    </div>
-                </a>
-                </a>
-                
-                {%endfor%}
-
-
-               
-            </div>
         </div>
-    </section>
-                                            
 
+        <!-- search -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {% for p in product %}
+            <a href="{% url 'productdetail' p.id %}" class="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500">
+                <div>
+                    <img src="/{{ p.image }}" alt="{{ p.product_name }}"
+                         class="w-full aspect-square rounded-2xl object-cover">
+                </div>
+                <div class="mt-5">
+                    <div class="flex items-center justify-between">
+                        <h6 class="font-semibold text-xl leading-8 text-black transition-all duration-500 group-hover:text-indigo-600">
+                            {{ p.product_name }}
+                        </h6>
+                        <h6 class="font-semibold text-xl leading-8 text-indigo-600">
+                            Rs. {{ p.product_price }}
+                        </h6>
+                    </div>
+                    <p class="mt-2 font-normal text-sm leading-6 text-gray-500">{{ p.category }}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
 
-
-
-
+    </div>
+</section>
 {% endblock %}
