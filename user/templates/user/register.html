@@ -1,0 +1,40 @@
+{% extends 'index.html' %}
+{%load crispy_forms_tags%}
+
+{% block main_section %}
+<div class="bg-gray-100 flex h-screen items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-md space-y-8">
+        <div class="bg-white shadow-md rounded-md p-6">
+
+            <img class="mx-auto h-12 w-auto" src="https://www.svgrepo.com/show/499664/user-happy.svg" alt="" />
+
+            <h2 class="my-3 text-center text-3xl font-bold tracking-tight text-gray-900">
+                Sign up for an account
+            </h2>
+
+
+
+
+            <form class="space-y-6" method="POST">
+                {%csrf_token%}
+
+
+                {{form | crispy}}
+
+              
+
+               
+
+                <div>
+                    <button type="submit"
+                        class="flex w-full justify-center rounded-md border border-transparent bg-sky-400 py-2 px-4 text-sm font-medium text-white shadow-sm hover:bg-opacity-75 focus:outline-none focus:ring-2 focus:ring-sky-400 focus:ring-offset-2">Register
+                        Account
+                        </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>                   
+
+
+{% endblock %}
