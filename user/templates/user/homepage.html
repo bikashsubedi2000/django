@@ -12,8 +12,7 @@
             </h2>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 {%for p in product%}
-                <a href="javascript:;"
-                    class="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500">
+                 <a href="{% url 'productdetail' p.id %}" class="mx-auto sm:mr-0 group cursor-pointer lg:mx-auto bg-white transition-all duration-500">
                     <div class="">
                         <img src="/{{p.image}}" alt="{{p.product_name}}"
                             class="w-full aspect-square rounded-2xl object-cover">

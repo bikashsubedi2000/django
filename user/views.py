@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages
 
+from django.contrib.auth import authenticate,login,logout
+from .forms import *
+
 # Create your views here.
 def register(request):
     if request.method == 'POST':
@@ -51,3 +54,22 @@ def productdetail(request, product_id):
     }
 
     return render(request, 'user/productdetail.html', data)
+
+
+
+def login(request):
+    if request.method == "POST":
+        form = LoginForm(request.POST)
+        if form.is_valid():
+            data = form.cleaned_data
+            user = authenticate(request,username=data['username'], password=data['password'])
+            if user is not None:
+                
+                return redirect('/')
+            else:
+                messages.add_message(request, messages.ERROR, 'Invalid username or password')
+    else:
+        form = LoginForm()
+        
+    return render(request, 'user/login.html', {'form': form})
+
