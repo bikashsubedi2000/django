@@ -27,11 +27,13 @@
         {% for msg in messages %}
 
 {% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-300 dark:text-red-800" role="alert">
     <span class="font-medium">Error alert!</span> {{msg}}
     </div>
     {% endif %}
     {% endfor %}
+
+    
         <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
             <form method="POST">
                 {%csrf_token%}

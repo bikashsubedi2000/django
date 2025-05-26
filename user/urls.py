@@ -5,6 +5,8 @@ urlpatterns=[
     path('productpage/',productpage,name='productpage'),
     path('productdetail/<int:product_id>/', productdetail, name='productdetail'),
     path('register/',register,name="register"),
-    path('login/',login,name='login'),
+    path('login/',login_user,name='login'),
+    path('logout/',logout_user,name='logout')
+    
     
 ]

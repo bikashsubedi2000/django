@@ -57,19 +57,32 @@ def productdetail(request, product_id):
 
 
 
-def login(request):
+from django.contrib.auth import authenticate, login as auth_login,logout
+from django.contrib import messages
+
+def login_user(request):
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            data = form.cleaned_data
-            user = authenticate(request,username=data['username'], password=data['password'])
+            data = form.cleaned_data   
+            # {'username':'bikash', 'password':'subedi'} cleaned_data
+            user = authenticate(request, username=data['username'], password=data['password'])
             if user is not None:
-                
-                return redirect('/')
+                login(request, user)
+                messages.add_message(request, messages.SUCCESS, 'Login Success')
+                if user.is_staff:
+                    return redirect('/admins/')
+                else:
+                    
+                    return redirect('/')
             else:
                 messages.add_message(request, messages.ERROR, 'Invalid username or password')
     else:
         form = LoginForm()
-        
+
     return render(request, 'user/login.html', {'form': form})
 
+
+def logout_user(request):
+    logout(request)
+    return redirect('/login')
