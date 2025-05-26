@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 class Category(models.Model):
@@ -25,3 +26,30 @@ class Product(models.Model):
     def __str__ (self):
         return self.product_name
     
+
+class Cart(models.Model):
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    quantity = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.quantity} x {self.product.name} in cart for {self.user.username}"
+    
+
+class Order(models.Model):
+    PAYMENT_METHOD = (
+        ("Cash on Delivery", 'Cash on Delivery'),
+        ("Esewa", "Esewa"),
+        ("Khalti", "Khalti")
+    )
+    
+    product = models.ForeignKey('Product', on_delete=models.CASCADE)
+    total_price = models.IntegerField()
+    quantity = models.IntegerField()
+    payment_method = models.CharField(choices=PAYMENT_METHOD, max_length=200)
+    payment_status = models.CharField(default="Pending", max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    contact_no = models.CharField(max_length=200)
+    address = models.CharField(max_length=200)  
+    email=models.EmailField()  

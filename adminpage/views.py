@@ -3,20 +3,26 @@ from django.http import HttpResponse
 from product.models import *
 from product.forms import *
 from django.contrib import messages
+from user.auth import *
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
+@login_required
+@admin_only
 def adminhome(request):
     return render(request,'admins/dashboard.html')
 
+@admin_only
 def productlist(request):
     product=Product.objects.all()
     return render(request,'admins/productlist.html',{'product':product})
 
+@admin_only
 def categorylist(request):
     category=Category.objects.all()
     return render(request,'admins/category.html',{'category':category})
 
-
+@admin_only
 def addproduct(request):
     if request.method == 'POST':
         form = ProductForm(request.POST,request.FILES)
@@ -32,7 +38,7 @@ def addproduct(request):
 
     return render(request, 'admins/addproduct.html', {'form': form})
     
-    
+@admin_only     
 def addcategory(request):
     if request.method == 'POST':
         form = CategoryForm(request.POST,request.FILES)
@@ -49,7 +55,7 @@ def addcategory(request):
     }
     return render(request, 'admins/addcategory.html', forms)
     
- 
+@admin_only 
 def updateproduct(request, product_id):
     instance = Product.objects.get(id=product_id)
     if request.method=="POST":
@@ -68,7 +74,7 @@ def updateproduct(request, product_id):
     }
     return render(request, 'admins/updateproduct.html',forms)
 
-
+@admin_only
 def deleteproduct(request, product_id):
     product = Product.objects.get(id=product_id)
     product.delete()

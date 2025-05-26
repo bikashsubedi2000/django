@@ -9,6 +9,9 @@ from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
 from .forms import *
 
+from user.auth import *
+
+
 # Create your views here.
 def register(request):
     if request.method == 'POST':
