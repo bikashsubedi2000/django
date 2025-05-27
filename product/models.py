@@ -29,8 +29,7 @@ class Product(models.Model):
 
 class Cart(models.Model):
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -52,4 +51,9 @@ class Order(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     contact_no = models.CharField(max_length=200)
     address = models.CharField(max_length=200)  
-    email=models.EmailField()  
+    email=models.EmailField()
+    
+    def __str__(self):
+        return f"Order #{self.id} by {self.user.username} - {self.product} - {self.payment_method}"  
+    
+

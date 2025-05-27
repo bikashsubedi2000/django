@@ -6,6 +6,17 @@
 <section class="py-24">
     <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
+        <!-- add to cart message  -->
+           {% for msg in messages %}
+
+{% if msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+<div class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400" role="alert">
+    <span class="font-medium">Error alert!</span> {{msg}}
+    </div>
+    {% endif %}
+    {% endfor %}
+
+
         <!-- add new class and put h2 inside -->
         <div class="flex justify-between">
             <h2 class="font-manrope font-bold text-4xl text-black mb-8 max-lg:text-center">

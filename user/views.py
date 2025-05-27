@@ -73,6 +73,7 @@ def login_user(request):
             if user is not None:
                 login(request, user)
                 messages.add_message(request, messages.SUCCESS, 'Login Success')
+                
                 if user.is_staff:
                     return redirect('/admins/')
                 else:
@@ -89,3 +90,30 @@ def login_user(request):
 def logout_user(request):
     logout(request)
     return redirect('/login')
+
+
+from django.contrib.auth.decorators import login_required
+@login_required
+def add_to_cart(request, product_id):
+    user = request.user
+    product = Product.objects.get(id=product_id)
+
+    check_items = Cart.objects.filter(user=user, product=product)
+    if check_items:
+        messages.add_message(request, messages.ERROR, 'Product is already added in cart')
+        return redirect('/cartlist')
+    else:
+        Cart.objects.create(user=user, product=product)
+        messages.add_message(request, messages.SUCCESS, 'Added product successfully in cart')
+        return redirect('/cartlist')
+
+@login_required    
+def cart_list(request):
+    user = request.user
+    items = Cart.objects.filter(user=user)
+    data = {
+        'items': items
+    }
+    return render(request, 'user/cart.html', data)
+    
+

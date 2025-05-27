@@ -3,7 +3,7 @@ from django.http import HttpResponse
 from product.models import *
 from product.forms import *
 from django.contrib import messages
-from user.auth import *
+from user.auth import admin_only
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
