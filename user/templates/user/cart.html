@@ -52,7 +52,7 @@
 
                 <td class="px-6 py-4">
                     <a href="{%url 'order' i.product.id i.id%}" class="font-medium text-green-600 dark:text-green-500 hover:underline px-5">Order Now </a>
-                    <a href="" class="font-medium text-red-600 dark:text-red-500 hover:underline ">Delete</a>
+                    <a href="{% url 'delete_cart_item' i.id %}" class="font-medium text-red-600 dark:text-red-500 hover:underline ">Delete</a>
 
                 </td>
                

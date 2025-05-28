@@ -175,3 +175,12 @@ def orderlist(request):
         'order': order
     }
     return render(request, 'user/myorder.html', data)
+
+
+from django.shortcuts import get_object_or_404, redirect
+@login_required
+def delete_cart_item(request, cart_id):
+    cart_item = get_object_or_404(Cart, id=cart_id, user=request.user)
+    cart_item.delete()
+    messages.success(request, 'Item has been removed from the cart.')
+    return redirect('/cartlist') 
