@@ -32,7 +32,12 @@
         <div class="flex items-center space-x-6 rtl:space-x-reverse">
             <a href="tel:5541251234" class="text-sm  text-gray-500 dark:text-white hover:underline">+977 9845072185</a>
             {%if user.is_authenticated %}
+
+            <a href="{% url 'cartlist' %}" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Cart List</a>
+            <a href="{% url 'myorder' %}" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">My Order</a>
             <a href="{% url 'logout' %}" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Logout</a>
+
+
             {%else%}
             <a href="{% url 'login'%}" class="text-sm  text-blue-600 dark:text-blue-500 hover:underline">Login</a>
             {%endif%}

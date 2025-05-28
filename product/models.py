@@ -33,7 +33,7 @@ class Cart(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f"{self.quantity} x {self.product.name} in cart for {self.user.username}"
+        return f" {self.user.username}"
     
 
 class Order(models.Model):
@@ -45,7 +45,7 @@ class Order(models.Model):
     
     product = models.ForeignKey('Product', on_delete=models.CASCADE)
     total_price = models.IntegerField()
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(null=True)
     payment_method = models.CharField(choices=PAYMENT_METHOD, max_length=200)
     payment_status = models.CharField(default="Pending", max_length=200)
     user = models.ForeignKey(User, on_delete=models.CASCADE)

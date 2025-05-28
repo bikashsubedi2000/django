@@ -19,43 +19,74 @@
                 <th scope="col" class="px-6 py-3">
                     Product Price
                 </th>
+                  <th scope="col" class="px-6 py-3">
+                    Quantity
+                </th>
              
              
                 <th scope="col" class="px-6 py-3">
                     Image
                 </th>
+                 <th scope="col" class="px-6 py-3">
+                    Payment Status
+                </th>
+                 <th scope="col" class="px-6 py-3">
+                    Payment Method
+                </th>
 
                   <th scope="col" class="px-6 py-3">
-                    action
+                    Address
+                </th>
+                 <th scope="col" class="px-6 py-3">
+                    Contact Number
+                </th>
+
+                  <th scope="col" class="px-6 py-3">
+                    Email
                 </th>
              
              
             </tr>
         </thead>
         <tbody>
-            {% for i in items %}
+            {% for o in order %}
             <tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700 border-gray-200">
                 <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                   {{i.product.product_name}}
+                   {{o.product.product_name}}
                 </th>
                 <td class="px-6 py-4">
-                   Rs. {{i.product.product_price}}
+                   Rs. {{o.product.product_price}}
+                </td>
+
+                 <td class="px-6 py-4">
+                    {{o.quantity}}
                 </td>
                
                 <td class="px-6 py-4">
-                    <img src="/{{i.product.image}}" width="80"  alt="{{i.product.product_name}}">
+                    <img src="/{{o.product.image}}" width="80"  alt="{{o.product.product_name}}">
                     
                 </td>
-
-
-
-
-                <td class="px-6 py-4">
-                    <a href="{%url 'order' i.product.id i.id%}" class="font-medium text-green-600 dark:text-green-500 hover:underline px-5">Order Now </a>
-                    <a href="" class="font-medium text-red-600 dark:text-red-500 hover:underline ">Delete</a>
-
+                 <td class="px-6 py-4">
+                    {{o.payment_status}}
                 </td>
-               
+
+                 <td class="px-6 py-4">
+                    {{o.payment_method}}
+                </td>
+                 <td class="px-6 py-4">
+                    {{o.address}}
+                </td>
+                 <td class="px-6 py-4">
+                    {{o.contact_no}}
+                </td>
+                 <td class="px-6 py-4">
+                    {{o.email}}
+                </td>
+
+
+
+
+                
 
                 
             </tr>

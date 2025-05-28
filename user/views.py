@@ -115,5 +115,63 @@ def cart_list(request):
         'items': items
     }
     return render(request, 'user/cart.html', data)
-    
 
+
+@login_required 
+def orderitem(request, product_id, cart_id):
+    user = request.user
+    product = Product.objects.get(id=product_id)
+    cart = Cart.objects.get(id=cart_id)
+
+    if request.method == "POST":
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            quantity = int(request.POST.get('quantity'))
+            price = product.product_price
+            total_price = quantity * price
+            contact_no = request.POST.get('contact_no')
+            address = request.POST.get('address')
+            email = request.POST.get('email')
+            payment_method = request.POST.get('payment_method')
+
+            order = Order.objects.create(
+                product=product,
+                user=user,
+                quantity=quantity,
+                total_price=total_price,
+                contact_no=contact_no,
+                address=address,
+                email=email,
+                payment_method=payment_method
+            )
+            
+            if order.payment_method == "Cash on Delivery":
+                cart.delete()
+                messages.success(request, 'Order has been placed successfully. Be ready with cash.')
+                return redirect('/cartlist')
+            elif order.payment_method == "Esewa":
+                # Redirect to Esewa payment gateway here
+                pass
+            elif order.payment_method == "Khalti":
+                # Redirect to Khalti payment gateway here
+                pass
+            else:
+                messages.error(request, "Invalid payment option")
+                return redirect('/cartlist')
+
+    form = {
+        'form': OrderForm()
+    }
+    return render(request, 'user/orderform.html', form)
+
+
+
+
+@login_required
+def orderlist(request):
+    user = request.user
+    order = Order.objects.filter(user=user)
+    data = {
+        'order': order
+    }
+    return render(request, 'user/myorder.html', data)
